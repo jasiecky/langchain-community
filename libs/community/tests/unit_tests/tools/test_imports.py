@@ -83,6 +83,7 @@ EXPECTED_ALL = [
     "ListPowerBITool",
     "ListSQLDatabaseTool",
     "ListSparkSQLTool",
+    "MCPDiscoveryTool",
     "MetaphorSearchResults",
     "MoveFileTool",
     "NasaAction",

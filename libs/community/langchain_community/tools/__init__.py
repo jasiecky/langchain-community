@@ -590,7 +590,7 @@ _module_lookup = {
     "ListPowerBITool": "langchain_community.tools.powerbi.tool",
     "ListSQLDatabaseTool": "langchain_community.tools.sql_database.tool",
     "ListSparkSQLTool": "langchain_community.tools.spark_sql.tool",
-    "MCPDiscoveryTool": "langchain_community.tools.mcp_discovery_tool.tool",
+    "MCPDiscoveryTool": "langchain_community.tools.mcp_discovery.tool",
     "MerriamWebsterQueryRun": "langchain_community.tools.merriam_webster.tool",
     "MetaphorSearchResults": "langchain_community.tools.metaphor_search",
     "MojeekSearch": "langchain_community.tools.mojeek_search.tool",

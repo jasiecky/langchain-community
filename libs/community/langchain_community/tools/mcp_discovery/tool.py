@@ -11,6 +11,7 @@ from langchain_core.callbacks import (
     CallbackManagerForToolRun,
 )
 from langchain_core.tools import BaseTool
+from pydantic import Field
 
 
 class MCPDiscoveryTool(BaseTool):
@@ -23,16 +24,10 @@ class MCPDiscoveryTool(BaseTool):
     description, and category.
     """
 
-    api_url: str
-
-    def __init__(self, api_url: str):
-        """Initialize the MCPDiscoveryTool.
-
-        Args:
-            api_url: URL of the MCP Discovery API endpoint.
-        """
-        super().__init__()
-        self.api_url = api_url
+    api_url: str = Field(
+        ...,
+        description="URL of the MCP endpoint",
+    )
 
     async def _request(self, user_request: str, limit: int) -> dict:
         """Perform a request to the MCP Discovery API."""
@@ -67,16 +62,13 @@ class MCPDiscoveryTool(BaseTool):
         tool_input: str,
         run_manager: Optional[CallbackManagerForToolRun] = None,
     ) -> str:
-        """Run the MCP Discovery tool synchronously.
-
-        The input should be a natural language description of the desired tool.
-        """
+        """Run the MCP Discovery tool synchronously."""
         try:
-            return asyncio.run(self._arun(tool_input))
+            loop = asyncio.get_running_loop()
         except RuntimeError:
-            # Event loop already running
-            loop = asyncio.get_event_loop()
-            return loop.run_until_complete(self._arun(tool_input))
+            return asyncio.run(self._arun(tool_input))
+
+        return loop.create_task(self._arun(tool_input))
 
     async def _arun(
         self,
